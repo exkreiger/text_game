@@ -1,0 +1,26 @@
+TODO:
+
+xx-write print_item statements
+xx-write print_item logic / test
+
+xx-write endings
+xx-write endings logic / test
+
+xx-ensure prompts are complete
+    prompts are called at correct time and call themselves the correct actions
+
+--ensure main logic and structure are complete
+    room moving
+    item grabbing
+
+(--ensure:              )
+(   ***movement         )
+(    ***item acquisition)
+(    ***ending trigger  )
+
+>> main reqs -- 
+            xx -item_print call -- check for choice and if item is available in room
+                and if it not in the inventory before nding the room id in the call
+                check and print for the item, then add the item to the inventory
+           xx room ids - let the dict live in rooms file
+            
