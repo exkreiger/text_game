@@ -1,0 +1,7 @@
+endings - func, text
+itemflavor - table, func
+prompts - funcs
+roomflavor - table, func
+tables - func, tables
+textart - art, func
+main - all
