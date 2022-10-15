@@ -17,14 +17,16 @@ actions = {
     }
 
 game_status = {
-    1: 'moving rooms',
-    2: 'grabbing item',
+    1: 'moving rooms - valid direction',
+    2: 'grabbing item - available',
     3: 'invalid input',
-    4: 'confrontation - win',
-    5: 'confrontation - lose',
-    6: 'meltdown ending',
-    7: 'bonus ending',
-    8: 'helping'
+    -4: 'confrontation - win',
+    -5: 'confrontation - lose',
+    -6: 'meltdown ending',
+    -7: 'bonus ending',
+    8: 'helping',
+    9: 'grabbing item - unavailable',
+    10: 'moving rooms - invalid direction'
         }
 
 room_ids = {

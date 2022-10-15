@@ -4,10 +4,8 @@ from tables import rooms, room_ids
 
 
 
-def starting_prompt(current_room_id, inventory):
+def starting_prompt():
     print_title()    
-    print()
-    print()
     print(""" 
     Welcome aboard the Daedalus. You find yourself in a dire situation. The 
     ship has been overwhelmed by a strange creature from unknown origins, and 
@@ -30,14 +28,15 @@ def starting_prompt(current_room_id, inventory):
 
 def help_prompt():
     print("""
-        (To navigate around the ship, enter a direction in the prompt to 
-        explore: forward ⬆️ . port ⬅️ . starboard ➡️ . aft ⬇️)
+        <<To navigate around the ship, enter GO [direction] in the prompt.
+
+                    forward ⬆️  . port ⬅️  . starboard ➡️  . aft ⬇️)
             """)
     print("""
-        (To grab an item, enter the item name in the prompt.)
+        <<To grab an item, enter GRAB [item] in the prompt.
             """)
     print("""
-        (To see the commands again, enter "help" in the prompt.)
+        <<To see the commands again, enter HELP in the prompt.
             """)
     return
 
