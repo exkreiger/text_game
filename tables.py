@@ -12,17 +12,19 @@ no_item_rooms = [6, 9, 11]
 actions = {
     'move': ['move', 'go', 'head'], 
     'grab': ['grab', 'get', 'take'],
-    'invalid': 'invalid'
-        }
+    'invalid': 'invalid',
+    'help': ['help', 'h', 'man', '?']
+    }
 
 game_status = {
     1: 'moving rooms',
     2: 'grabbing item',
     3: 'invalid input',
-    4: 'confrontation',
-    5: 'meltdown ending',
-    6: 'bonus ending',
-    7: 'meltdown warning'
+    4: 'confrontation - win',
+    5: 'confrontation - lose',
+    6: 'meltdown ending',
+    7: 'bonus ending',
+    8: 'helping'
         }
 
 room_ids = {
