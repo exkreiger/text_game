@@ -1,18 +1,22 @@
 from room_flavor import *
 from text_art import *
+from tables import clear
 
 def confrontation(status_code):
     if status_code == -7:
+        clear()
         print(bonus)
         print()
         print_the_end_winning()
     elif status_code == -4:
+        clear()
         engine_room_title()
         print(winning)
         room_print(11)
         print()
         print_the_end_winning()
     elif status_code == -5:
+        clear()
         engine_room_title()
         room_print(9)
         print(losing)
@@ -21,6 +25,7 @@ def confrontation(status_code):
 
 
 def meltdown():
+    clear()
     print(melting)
     print_the_end_losing()
     return

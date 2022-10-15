@@ -41,24 +41,110 @@ def help_prompt():
     return
 
 
-def prompting(current_room, current_room_id, inventory):
+def choice_prompt(current_rid, inventory):
     print()
-    print('\\\\current_room: ', room_ids[current_room_id].upper())
+    print('\\\\current_room: ', room_ids[current_rid].upper())
     print("\\\\forward ⬆️ . port ⬅️ . starboard ➡️ . aft ⬇️")
     print('\\\\inventory: ', inventory, '\n')
-    choice = input('What would you like to do?\n>>$ ').lower().split(' ')[0]
+    dirty_choice = input('What would you like to do?\n>>$ ')
+    pre_state = (dirty_choice, current_rid, inventory)
+    return pre_state
 
-
-    if choice in rooms[current_room_id]['directions'] \
-            and rooms[current_room_id]['directions'][choice] != 9:
-        next_id = rooms[current_room_id]['directions'][choice]
-        next_room = room_ids[next_id]
-    elif choice in rooms[current_room_id]['directions'] \
-            and rooms[current_room_id]['directions'][choice] == 9:
-        next_id = rooms[current_room_id]['directions'][choice]
-        next_room = 'confrontation'
+# returns action, choice, new_rid, status, inventory, meltdown_warn
+def make_state(pre_state):
+    global countdown
+    countdown -= .35
+    dc = pre_state[0].lower().split()
+    current_rid = pre_state[1]
+    # return inits
+    inventory = pre_state[2]
+    if len(dc) <= 1:
+        choice = 'invalid'
+        action = 'invalid'
     else:
-        next_id = current_room_id
-        next_room = current_room
+        choice = dc[1]
+        action = dc[0]
+    new_rid = current_rid
+    status = 0
+    meltdown_warn = 0
 
-    return choice, next_room, next_id
+    if countdown <= 0: 
+        status = -6
+        return action, choice, new_rid, status, inventory, meltdown_warn
+
+    if  (countdown >= 7.55 and countdown <= 7.8)\
+            or (countdown >= 4.4 and countdown <= 4.7)\
+            or (countdown >= 1.6 and countdown <= 1.94):
+        meltdown_warn = 1
+
+    if action in actions['help']:
+        status = 8
+
+    elif action in actions['move']:
+        directions_list = list(rooms[current_rid]['directions'].keys())
+        if choice in directions_list:
+            status = 1
+            new_rid = rooms[current_rid]['directions'][dc[1]]
+            action = 'move'
+            choice = dc[1]
+            if new_rid == 9:
+                if (len(inventory) < 6):
+                    status = -5
+                else:
+                    status = -4
+        else:
+            status = 10
+
+    elif action in actions['grab']:
+        item = list(rooms[current_rid]['item'].keys())[0]
+        item_avail = rooms[current_rid]['item'][item]
+        if choice in item.split() and item_avail == 1:
+            status = 2 
+            new_rid = current_rid
+            action = 'grab'
+            choice = list(rooms[current_rid]['item'].keys())[0]
+            inventory.append(item)
+            if 'space larva' in inventory\
+                    and 'odd blob of space jelly' in inventory:
+                status = -7
+        else:
+            status = 0
+    else:
+        status = 3
+
+    return action, choice, new_rid, status, inventory, meltdown_warn
+
+
+def prompt(current_rid, inventory):
+    return make_state(choice_prompt(current_rid, inventory))
+
+
+def meltdown_warning(meltdown_warn):
+    if 7.55 <= countdown <= 7.8:
+        clear()
+        print_warning()
+        print("""
+            WARNING: PLASMA ENGINE EMERGENCY SELF-DESTRUCT IMMINENT
+                SYSTEMS AT 80%
+                """)
+        input('<<PRESS ENTER TO PROCEED>>')
+        meltdown_warn = 0
+    elif 4.4 <= countdown <= 4.7:
+        clear()
+        print_warning()
+        print(  """
+            WARNING: PLASMA ENGINE EMERGENCY SELF-DESTRUCT IMMINENT
+                SYSTEMS AT 50%
+                """)
+        input('<<PRESS ENTER TO PROCEED>>')
+        meltdown_warn = 0
+    elif 1.6 <= countdown <= 1.94:
+        clear()
+        print_warning()
+        print(  """
+            WARNING: PLASMA ENGINE EMERGENCY SELF-DESTRUCT IMMINENT
+                SYSTEMS AT 20%
+                """)
+        input('<<PRESS ENTER TO PROCEED>>')
+        meltdown_warn = 0
+    return meltdown_warn
