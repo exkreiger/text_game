@@ -1,6 +1,6 @@
 from room_flavor import room_print
 from text_art import *
-from rooms import rooms, room_ids
+from tables import rooms, room_ids
 
 
 

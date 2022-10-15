@@ -16,12 +16,12 @@ actions = {
         }
 
 game_status = {
-    1: 'moving',
+    1: 'moving rooms',
     2: 'grabbing item',
     3: 'invalid input',
     4: 'confrontation',
-    5: 'meltdown',
-    6: 'bonus',
+    5: 'meltdown ending',
+    6: 'bonus ending',
     7: 'meltdown warning'
         }
 

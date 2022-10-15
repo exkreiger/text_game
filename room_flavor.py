@@ -1,5 +1,5 @@
 from text_art import *
-from rooms import *
+from tables import *
 
 initial_visit = {
     1: 1,
