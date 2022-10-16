@@ -297,7 +297,7 @@ def make_state(pre_state):
         status = -6
         return action, choice, new_rid, status, inventory, meltdown_warn
 
-    if  (countdown >= 7.55 and countdown <= 7.8)\
+    if (countdown >= 7.55 and countdown <= 7.8)\
             or (countdown >= 4.4 and countdown <= 4.7)\
             or (countdown >= 1.6 and countdown <= 1.94):
         meltdown_warn = 1
@@ -592,7 +592,10 @@ bonus = """
         can see the strange creature floating out into space, seemingly
         alone in the void, although not as alone as it would appear.
                                    
-                          ( 。・_・。)人(。・_・。 )
+                        ( 。・_・。)人(。・_・。 )
+              
+
+              (Congratulations on unlocking the bonus ending!)
 """
 
 winning = """ 
@@ -795,22 +798,22 @@ def print_the_end_losing():
 
 def print_the_end_winning():
     print("""
-         ████████ ██   ██ ███████     ███████ ███    ██ ██████  
-            ██    ██   ██ ██          ██      ████   ██ ██   ██ 
-            ██    ███████ █████       █████   ██ ██  ██ ██   ██ 
-            ██    ██   ██ ██          ██      ██  ██ ██ ██   ██ 
-            ██    ██   ██ ███████     ███████ ██   ████ ██████  
+           ████████ ██   ██ ███████     ███████ ███    ██ ██████  
+              ██    ██   ██ ██          ██      ████   ██ ██   ██ 
+              ██    ███████ █████       █████   ██ ██  ██ ██   ██ 
+              ██    ██   ██ ██          ██      ██  ██ ██ ██   ██ 
+              ██    ██   ██ ███████     ███████ ██   ████ ██████  
     """)
     return
 
 
 def print_invalid():
     print("""
-            ██ ███    ██ ██    ██  █████  ██      ██ ██████  
-            ██ ████   ██ ██    ██ ██   ██ ██      ██ ██   ██ 
-            ██ ██ ██  ██ ██    ██ ███████ ██      ██ ██   ██ 
-            ██ ██  ██ ██  ██  ██  ██   ██ ██      ██ ██   ██ 
-            ██ ██   ████   ████   ██   ██ ███████ ██ ██████ 
+              ██ ███    ██ ██    ██  █████  ██      ██ ██████  
+              ██ ████   ██ ██    ██ ██   ██ ██      ██ ██   ██ 
+              ██ ██ ██  ██ ██    ██ ███████ ██      ██ ██   ██ 
+              ██ ██  ██ ██  ██  ██  ██   ██ ██      ██ ██   ██ 
+              ██ ██   ████   ████   ██   ██ ███████ ██ ██████ 
     """)
     return
 
@@ -853,7 +856,7 @@ def print_warning():
 if __name__ == '__main__':
     # defaults for first state
     # testing use, keeping
-    defaults = [6,[], 10, 0]
+    defaults = [6,[1,2,3,4,5], 10, 0]
 
     room_id = defaults[0]
     inventory = defaults[1]
@@ -876,17 +879,18 @@ if __name__ == '__main__':
         clear()
         
         print('status_code', status_code)
+        print('being polite?', being_polite)
+        print('items in inventory', len(inventory))
         
         if being_polite == 1 and len(inventory) == 6:
-            print("""
-        ________________________________________________________________
-        
-        You have enough items for a good chance at fighting the monster.
-                        Head AFT for the ENGINE ROOM.
-        ________________________________________________________________
-            """)
             being_polite = 0
-            continue
+            print("""
+    ________________________________________________________________
+    
+    You have enough items for a good chance at fighting the monster.
+                    Head AFT for the ENGINE ROOM.
+    ________________________________________________________________
+        """)
 
         # check the meltdown warning first
         if meltdown_warn == 1:
